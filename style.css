@@ -1,0 +1,131 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100%;
+  font-family: Arial, sans-serif;
+}
+.background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #ffa500, #ff6347, #800080);
+
+  background-size: 200% 200%;
+  animation: gradientAnimation 12s ease infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated gradient shift */
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.background::before,
+.background::after {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  filter: blur(60px);
+  animation: floatAnimation 10s ease-in-out infinite;
+}
+
+.background::before {
+  top: 20%;
+  left: 15%;
+  animation-delay: 0s;
+}
+
+.background::after {
+  bottom: 20%;
+  right: 15%;
+  animation-delay: 5s;
+}
+
+@keyframes floatAnimation {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.weather-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95),
+    rgba(245, 245, 245, 0.9)
+  );
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.15), 0px 10px 40px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.weather-card::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 200px;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transform: rotate(45deg);
+}
+
+.weather-card::after {
+  content: '';
+  position: absolute;
+  bottom: -50px;
+  left: -50px;
+  width: 200px;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  transform: rotate(45deg);
+}
+
+.weather-card-content {
+  position: relative;
+  z-index: 2;
+}
+
+.weather-card h1 {
+  font-size: 2em;
+  color: #0b3d91;
+  margin-bottom: 20px;
+}
+
+.weather-card p {
+  font-size: 1.2em;
+  color: #333;
+  margin: 12px 0;
+}
+
+.weather-card p span {
+  font-weight: bold;
+  color: #0b3d91;
+}

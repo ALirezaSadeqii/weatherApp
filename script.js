@@ -24,7 +24,7 @@ class Data {
       })
       .then(res => {
         if (!res.ok)
-          throw new Error(`problem in getting the location ${response.status}`);
+          throw new Error(`problem in getting the location ${res.status}`);
         console.log(res);
         return res.json();
       })
@@ -45,8 +45,32 @@ class Data {
       })
       .then(dataWeather => {
         console.log(dataWeather);
+        this.renderWeatherInfo(dataWeather);
       })
       .catch(error => console.error(error));
+  }
+  renderWeatherInfo(dataWeather) {
+    const weatherHTML = `
+      <div class="background">
+        <div class="weather-card">
+          <div class="weather-card-content">
+            <h1>Weather Info</h1>
+            <p id="location">Location: ${dataWeather.name}</p>
+            <p id="temperature">Temperature: ${Math.round(
+              dataWeather.main.temp - 273.15
+            )}°C</p> <!-- Convert from Kelvin to Celsius -->
+            <p id="description">Description: ${
+              dataWeather.weather[0].description
+            }</p>
+            <p id="humidity">Humidity: ${dataWeather.main.humidity}%</p>
+            <p id="wind-speed">Wind Speed: ${dataWeather.wind.speed} m/s</p>
+          </div>
+        </div>
+      </div>
+    `;
+
+    const page = document.querySelector('.page');
+    page.insertAdjacentHTML('beforeend', weatherHTML);
   }
 }
 
