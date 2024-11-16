@@ -14,7 +14,13 @@ html {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(135deg, #ffa500, #ff6347, #800080);
+  /*background: linear-gradient(135deg, #e0f7fa, #b2ebf2, #ffffff);   sonwy weather */
+  /*background: linear-gradient(135deg, #d3d3d3, #a9a9a9, #708090);*/
+  background: linear-gradient(135deg, #ffd700, #ffa500, #ff6347);
+  background: linear-gradient(135deg, #5f9ea0, #4682b4, #2f4f4f);
+  background: linear-gradient(135deg, #f0f0f0, #dcdcdc, #a9a9a9);
+  background: linear-gradient(135deg, #2c3e50, #1a237e, #000000);
+  background: linear-gradient(135deg, #2f4f4f, #000080, #191970);
 
   background-size: 200% 200%;
   animation: gradientAnimation 12s ease infinite;
