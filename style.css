@@ -10,7 +10,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to bottom right, #007cf0, #00dfd8);
 }
 
 .weather-container {
@@ -117,49 +116,194 @@ body {
 }
 
 /* Dynamic Weather Backgrounds */
-body.sunny {
-  background: linear-gradient(to top, #ffdd70, #ff9e2c);
-  color: #ff9e2c;
+
+.weather-bg {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color) 0%,
+    var(--secondary-color) 100%
+  );
+  position: relative;
+  overflow: hidden;
+  color: white;
 }
 
-body.cloudy {
-  background: linear-gradient(to top, #c3cfe2, #dee5e8);
-  color: #596275;
+/* Background Pattern Layer */
+.weather-bg::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background-image: radial-gradient(
+      circle at 30% 20%,
+      var(--pattern-color) 0%,
+      transparent 10%
+    ),
+    radial-gradient(circle at 70% 60%, var(--pattern-color) 0%, transparent 15%),
+    radial-gradient(circle at 40% 80%, var(--pattern-color) 0%, transparent 12%),
+    radial-gradient(circle at 80% 30%, var(--pattern-color) 0%, transparent 14%);
+  background-size: 100px 100px;
+  animation: patternMove 60s linear infinite;
+  opacity: 0.5;
 }
 
-body.rainy {
-  background: linear-gradient(to top, #647d90, #35495d);
-  color: #a5b9c6;
+/* Floating Elements Layer */
+.weather-bg::after {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background-image: radial-gradient(
+      circle at 50% 50%,
+      var(--accent-color) 0%,
+      transparent 40%
+    ),
+    radial-gradient(circle at 20% 30%, var(--accent-color) 0%, transparent 35%),
+    radial-gradient(circle at 80% 70%, var(--accent-color) 0%, transparent 45%);
+  filter: blur(20px);
+  animation: float 30s ease-in-out infinite;
+  opacity: 0.7;
 }
 
-body.snowy {
-  background: linear-gradient(to top, #ffffff, #c9d6ff);
-  color: #3c3c3c;
-}
-
-body.stormy {
-  background: linear-gradient(to top, #202a3b, #1c2331);
-  color: #f5f5f5;
-}
-
-body.drizzly {
-  background: linear-gradient(to top, #8fa5b3, #7a8b9c);
-  color: #d4dde2;
-}
-
-body.default-weather {
-  background: linear-gradient(to top, #93c5fd, #3b82f6);
-  color: #ffffff;
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
+@keyframes patternMove {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  25% {
+    transform: translate(-5%, 5%) rotate(1deg);
   }
+  50% {
+    transform: translate(5%, -5%) rotate(0deg);
+  }
+  75% {
+    transform: translate(-5%, -5%) rotate(-1deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(-2%, 2%) scale(1.02);
+  }
+  50% {
+    transform: translate(2%, -2%) scale(0.98);
+  }
+  75% {
+    transform: translate(-2%, -2%) scale(1.02);
+  }
+}
+
+/* Diagonal Stripes */
+.stripes {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background: repeating-linear-gradient(
+    45deg,
+    var(--pattern-color),
+    var(--pattern-color) 1px,
+    transparent 1px,
+    transparent 50px
+  );
+  opacity: 0.1;
+  animation: stripeMove 120s linear infinite;
+}
+
+@keyframes stripeMove {
+  0% {
+    transform: translate(-50px, -50px);
+  }
+  100% {
+    transform: translate(50px, 50px);
+  }
+}
+
+/* Content styling */
+.content {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 70%
+  );
+}
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Example weather themes - Add these classes to .weather-bg */
+.sunny {
+  --primary-color: #9eb4c5;
+  --secondary-color: #718693;
+  --accent-color: rgba(255, 255, 255, 0.2);
+  --pattern-color: rgba(255, 255, 255, 0.1)
+  --primary-color: #fdb813;
+  --secondary-color: #f57d26;
+  --accent-color: rgba(255, 244, 224, 0.2);
+  --pattern-color: rgba(255, 250, 230, 0.15);;
+}
+
+.cloudy {
+  --primary-color: #9eb4c5;
+  --secondary-color: #718693;
+  --accent-color: rgba(255, 255, 255, 0.2);
+  --pattern-color: rgba(255, 255, 255, 0.1);  
+    
+}
+
+.stormy {
+  --primary-color: #2c3440;
+  --secondary-color: #1b2431;
+  --accent-color: rgba(83, 103, 127, 0.2);
+  --pattern-color: rgba(83, 103, 127, 0.1);
+}
+
+.snowy {
+  --primary-color: #f0f7fa;
+  --secondary-color: #dde9f0;
+  --accent-color: rgba(245, 250, 252, 0.3);
+  --pattern-color: rgba(245, 250, 252, 0.2);
+}
+
+.rainy {
+  --primary-color: #9eb4c5;
+  --secondary-color: #718693;
+  --accent-color: rgba(255, 255, 255, 0.2);
+  --pattern-color: rgba(255, 255, 255, 0.1);
+  --primary-color: #4a6b82;
+  --secondary-color: #2b4d63;
+  --accent-color: rgba(147, 169, 186, 0.2);
+  --pattern-color: rgba(147, 169, 186, 0.1);
 }
